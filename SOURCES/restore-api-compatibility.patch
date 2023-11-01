@@ -1,0 +1,870 @@
+diff --git a/cmdlang/Makefile.am b/cmdlang/Makefile.am
+index 9326e3ea..192623f3 100644
+--- a/cmdlang/Makefile.am
++++ b/cmdlang/Makefile.am
+@@ -2,8 +2,6 @@
+ LIB_VERSION = 0.0.5
+ LD_VERSION = 0:5:0
+ 
+-noinst_HEADERS = cmdlang.h
+-
+ AM_CFLAGS = -Wall -Wsign-compare -I$(top_builddir)/include \
+ 	-I$(top_srcdir)/include \
+ 	-DIPMI_CHECK_LOCKS $(GLIB_CFLAGS) \
+diff --git a/cmdlang/cmd_conn.c b/cmdlang/cmd_conn.c
+index cdd700b6..338e9c77 100644
+--- a/cmdlang/cmd_conn.c
++++ b/cmdlang/cmd_conn.c
+@@ -38,7 +38,6 @@
+ #include <stdio.h>
+ #include <OpenIPMI/ipmiif.h>
+ #include <OpenIPMI/ipmi_cmdlang.h>
+-#include "cmdlang.h"
+ 
+ static void
+ con_list_handler(ipmi_domain_t *domain, int conn, void *cb_data)
+diff --git a/cmdlang/cmd_control.c b/cmdlang/cmd_control.c
+index feefe73c..06cf1c27 100644
+--- a/cmdlang/cmd_control.c
++++ b/cmdlang/cmd_control.c
+@@ -41,7 +41,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ static void
+ control_list_handler(ipmi_entity_t *entity, ipmi_control_t *control,
+diff --git a/cmdlang/cmd_domain.c b/cmdlang/cmd_domain.c
+index dec5765d..0ca0b25d 100644
+--- a/cmdlang/cmd_domain.c
++++ b/cmdlang/cmd_domain.c
+@@ -45,7 +45,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ /* Don't pollute the namespace iwth ipmi_fru_t. */
+ void ipmi_cmdlang_dump_fru_info(ipmi_cmd_info_t *cmd_info, ipmi_fru_t *fru);
+diff --git a/cmdlang/cmd_entity.c b/cmdlang/cmd_entity.c
+index e88854ac..a5ad1475 100644
+--- a/cmdlang/cmd_entity.c
++++ b/cmdlang/cmd_entity.c
+@@ -42,7 +42,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ /* Don't pollute the namespace iwth ipmi_fru_t. */
+ void ipmi_cmdlang_dump_fru_info(ipmi_cmd_info_t *cmd_info, ipmi_fru_t *fru);
+diff --git a/cmdlang/cmd_fru.c b/cmdlang/cmd_fru.c
+index 5cc2a1ac..cea4b70c 100644
+--- a/cmdlang/cmd_fru.c
++++ b/cmdlang/cmd_fru.c
+@@ -43,7 +43,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ /* Don't pollute the namespace iwth ipmi_fru_t. */
+ void ipmi_cmdlang_dump_fru_info(ipmi_cmd_info_t *cmd_info, ipmi_fru_t *fru);
+diff --git a/cmdlang/cmd_lanparm.c b/cmdlang/cmd_lanparm.c
+index b6e86701..7afd7dd2 100644
+--- a/cmdlang/cmd_lanparm.c
++++ b/cmdlang/cmd_lanparm.c
+@@ -44,7 +44,6 @@
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+ #include <OpenIPMI/internal/locked_list.h>
+-#include "cmdlang.h"
+ 
+ static locked_list_t *lancs;
+ 
+diff --git a/cmdlang/cmd_mc.c b/cmdlang/cmd_mc.c
+index 645506e7..0a3f6440 100644
+--- a/cmdlang/cmd_mc.c
++++ b/cmdlang/cmd_mc.c
+@@ -47,7 +47,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ static void
+ mc_list_handler(ipmi_domain_t *domain, ipmi_mc_t *mc, void *cb_data)
+diff --git a/cmdlang/cmd_pef.c b/cmdlang/cmd_pef.c
+index c8503299..47ab2bd1 100644
+--- a/cmdlang/cmd_pef.c
++++ b/cmdlang/cmd_pef.c
+@@ -44,7 +44,6 @@
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+ #include <OpenIPMI/internal/locked_list.h>
+-#include "cmdlang.h"
+ 
+ static locked_list_t *pefs;
+ 
+diff --git a/cmdlang/cmd_pet.c b/cmdlang/cmd_pet.c
+index 5730159e..77d3f90d 100644
+--- a/cmdlang/cmd_pet.c
++++ b/cmdlang/cmd_pet.c
+@@ -40,7 +40,6 @@
+ #include <OpenIPMI/ipmi_pet.h>
+ #include <OpenIPMI/ipmi_mc.h>
+ #include <OpenIPMI/ipmi_cmdlang.h>
+-#include "cmdlang.h"
+ 
+ 
+ static void
+diff --git a/cmdlang/cmd_sel.c b/cmdlang/cmd_sel.c
+index 660f58a7..545b12f2 100644
+--- a/cmdlang/cmd_sel.c
++++ b/cmdlang/cmd_sel.c
+@@ -42,7 +42,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ static int
+ discrete_event_handler(ipmi_sensor_t         *sensor,
+diff --git a/cmdlang/cmd_sensor.c b/cmdlang/cmd_sensor.c
+index a4abc77c..99b8a634 100644
+--- a/cmdlang/cmd_sensor.c
++++ b/cmdlang/cmd_sensor.c
+@@ -41,7 +41,6 @@
+ 
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+-#include "cmdlang.h"
+ 
+ static void
+ sensor_list_handler(ipmi_entity_t *entity, ipmi_sensor_t *sensor,
+diff --git a/cmdlang/cmd_solparm.c b/cmdlang/cmd_solparm.c
+index f584f8f3..df32c3f7 100644
+--- a/cmdlang/cmd_solparm.c
++++ b/cmdlang/cmd_solparm.c
+@@ -44,7 +44,6 @@
+ /* Internal includes, do not use in your programs */
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+ #include <OpenIPMI/internal/locked_list.h>
+-#include "cmdlang.h"
+ 
+ static locked_list_t *solcs;
+ 
+diff --git a/cmdlang/cmdlang.c b/cmdlang/cmdlang.c
+index b690e24c..416fce7f 100644
+--- a/cmdlang/cmdlang.c
++++ b/cmdlang/cmdlang.c
+@@ -54,7 +54,6 @@
+ #include <OpenIPMI/internal/ipmi_locks.h>
+ #include <OpenIPMI/internal/ipmi_malloc.h>
+ #include <OpenIPMI/internal/winsock_compat.h>
+-#include "cmdlang.h"
+ 
+ /*
+  * This is the value passed to a command handler.
+@@ -2480,6 +2479,8 @@ event_done(ipmi_cmdlang_t *cmdlang)
+ 	    ipmi_mem_free(cmdlang->errstr);
+     } else if (ipmi_cmdlang_event_rpt) {
+ 	ipmi_cmdlang_event_rpt(event);
++    } else if (ipmi_cmdlang_report_event) {
++	ipmi_cmdlang_report_event(event);
+     }
+ 
+     if (cmdlang->objstr)
+diff --git a/cmdlang/cmdlang.h b/cmdlang/cmdlang.h
+deleted file mode 100644
+index 0758cb5d..00000000
+--- a/cmdlang/cmdlang.h
++++ /dev/null
+@@ -1,43 +0,0 @@
+-/*
+- * cmdlang.h
+- *
+- * A command interpreter for OpenIPMI
+- *
+- * Author: MontaVista Software, Inc.
+- *         Corey Minyard <minyard@mvista.com>
+- *         source@mvista.com
+- *
+- * Copyright 2020 MontaVista Software Inc.
+- *
+- *  This program is free software; you can redistribute it and/or
+- *  modify it under the terms of the GNU Lesser General Public License
+- *  as published by the Free Software Foundation; either version 2 of
+- *  the License, or (at your option) any later version.
+- *
+- *
+- *  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
+- *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+- *  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+- *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+- *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+- *  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+- *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+- *  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+- *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+- *
+- *  You should have received a copy of the GNU Lesser General Public
+- *  License along with this program; if not, write to the Free
+- *  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+- */
+-
+-#ifndef CMDLANG_H
+-#define CMDLANG_H
+-
+-/* Used to log errors inside the cmdlang. */
+-void ipmi_cmdlang_global_err(char *objstr,
+-			     char *location,
+-			     char *errstr,
+-			     int  errval);
+-
+-#endif /* CMDLANG_H */
+diff --git a/include/OpenIPMI/Makefile.am b/include/OpenIPMI/Makefile.am
+index 8e86afc8..644cc84a 100644
+--- a/include/OpenIPMI/Makefile.am
++++ b/include/OpenIPMI/Makefile.am
+@@ -8,7 +8,7 @@ pkginclude_HEADERS = \
+ 	ipmi_conn.h	ipmi_lan.h	ipmi_pet.h	ipmi_ui.h	\
+ 	ipmi_debug.h	ipmi_lanparm.h	ipmi_picmg.h	ipmi_string.h	\
+ 	ipmi_sol.h	ipmi_solparm.h	ipmi_tcl.h	deprecator.h	\
+-	dllvisibility.h
++	dllvisibility.h	weaksyms.h
+ 
+ SUBDIRS = internal
+ 
+diff --git a/include/OpenIPMI/ipmi_cmdlang.h b/include/OpenIPMI/ipmi_cmdlang.h
+index 80e5cb8a..682279e9 100644
+--- a/include/OpenIPMI/ipmi_cmdlang.h
++++ b/include/OpenIPMI/ipmi_cmdlang.h
+@@ -35,6 +35,7 @@
+ #define OPENIPMI_CMDLANG_H
+ 
+ #include <OpenIPMI/dllvisibility.h>
++#include <OpenIPMI/weaksyms.h>
+ #include <OpenIPMI/selector.h>
+ #include <OpenIPMI/ipmi_bits.h>
+ #include <OpenIPMI/ipmi_types.h>
+@@ -44,6 +45,14 @@
+ extern "C" {
+ #endif
+ 
++#ifdef BUILDING_IPMI_CMDLANG_DLL
++  #define IPMI_CMDLANG_WEAK(ret, sym, decl) IPMI_WEAK_DLL(ret, sym, decl)
++  #define IPMI_CMDLANG_WEAK_DEFAULT(ret, sym, decl) IPMI_WEAK_DLL_DEFAULT(ret, sym, decl)
++#else
++  #define IPMI_CMDLANG_WEAK(ret, sym, decl) IPMI_WEAK_USER(ret, sym, decl)
++  #define IPMI_CMDLANG_WEAK_DEFAULT(ret, sym, decl) IPMI_WEAK_USER(ret, sym, decl)
++#endif
++
+ #if defined _WIN32 || defined __CYGWIN__
+   #ifdef BUILDING_IPMI_CMDLANG_DLL
+     #ifdef __GNUC__
+@@ -427,10 +436,15 @@ extern void (*ipmi_cmdlang_err_rpt)(char *objstr,
+ 				    char *location,
+ 				    char *errstr,
+ 				    int  errval);
++IPMI_CMDLANG_WEAK_DEFAULT(void, ipmi_cmdlang_global_err, (char *objstr,
++							  char *location,
++							  char *errstr,
++							  int  errval));
+ 
+ /* Supplied by the user to report events. */
+ IPMI_CMDLANG_DLL_PUBLIC
+ extern void (*ipmi_cmdlang_event_rpt)(ipmi_cmdlang_event_t *event);
++IPMI_CMDLANG_WEAK(void, ipmi_cmdlang_report_event, (ipmi_cmdlang_event_t *event));
+ 
+ /* In callbacks, you must use these to lock the cmd_info structure. */
+ IPMI_CMDLANG_DLL_PUBLIC
+diff --git a/include/OpenIPMI/ipmi_posix.h b/include/OpenIPMI/ipmi_posix.h
+index f3000eca..0d7e82ee 100644
+--- a/include/OpenIPMI/ipmi_posix.h
++++ b/include/OpenIPMI/ipmi_posix.h
+@@ -43,6 +43,19 @@
+ extern "C" {
+ #endif
+ 
++/* These are the defined OS handlers for POSIX with and without
++   threading.  If you use these (and thus link with the OpenIPMIposix
++   or OpenIPMIpthread libraries) you must provide posix_vlog().  It is
++   not provided by the library. */
++/* DEPRECATED - This should no longer be used, you should use the
++   OS-handler function to set your log handler.  If you do not supply
++   your own os_vlog handler, logs will go to stderr.  If you supply a
++   posix_vlog handler and don't call set_log_handler in the OS handler,
++   posix_vlog() will still be used. */
++IPMI_SEL_WEAK(void, posix_vlog, (char *format,
++				 enum ipmi_log_type_e log_type,
++				 va_list ap));
++
+ /* Non-threaded os handler operations */
+ 
+ /**********************************************************************
+diff --git a/include/OpenIPMI/selector.h b/include/OpenIPMI/selector.h
+index ca1f7f9c..d803d9f4 100644
+--- a/include/OpenIPMI/selector.h
++++ b/include/OpenIPMI/selector.h
+@@ -46,6 +46,14 @@
+ typedef int sigset_t;
+ #endif
+ 
++#include <OpenIPMI/weaksyms.h>
++
++#if defined BUILDING_IPMI_SELECTOR_DLL
++  #define IPMI_SEL_WEAK(ret, sym, decl) IPMI_WEAK_DLL(ret, sym, decl)
++#else
++  #define IPMI_SEL_WEAK(ret, sym, decl) IPMI_WEAK_USER(ret, sym, decl)
++#endif
++
+ #if defined _WIN32 || defined __CYGWIN__
+   #ifdef BUILDING_IPMI_SELECTOR_DLL
+     #ifdef __GNUC__
+diff --git a/include/OpenIPMI/weaksyms.h b/include/OpenIPMI/weaksyms.h
+new file mode 100644
+index 00000000..07004243
+--- /dev/null
++++ b/include/OpenIPMI/weaksyms.h
+@@ -0,0 +1,80 @@
++/*
++ * weaksyms.h
++ *
++ * MontaVista IPMI weak symbol defines
++ *
++ * Author: MontaVista Software, Inc.
++ *         Corey Minyard <minyard@mvista.com>
++ *         source@mvista.com
++ *
++ * Copyright 2003,2004,2005 MontaVista Software Inc.
++ *
++ * This software is available to you under a choice of one of two
++ * licenses.  You may choose to be licensed under the terms of the GNU
++ * Lesser General Public License (GPL) Version 2 or the modified BSD
++ * license below.  The following disclamer applies to both licenses:
++ *
++ *  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
++ *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ *  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
++ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++` *  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
++ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
++ *  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *
++ * GNU Lesser General Public Licence
++ *
++ *  This program is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public License
++ *  as published by the Free Software Foundation; either version 2 of
++ *  the License, or (at your option) any later version.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this program; if not, write to the Free
++ *  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
++ *
++ * Modified BSD Licence
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *   1. Redistributions of source code must retain the above copyright
++ *      notice, this list of conditions and the following disclaimer.
++ *   2. Redistributions in binary form must reproduce the above
++ *      copyright notice, this list of conditions and the following
++ *      disclaimer in the documentation and/or other materials provided
++ *      with the distribution.
++ *   3. The name of the author may not be used to endorse or promote
++ *      products derived from this software without specific prior
++ *      written permission.
++ */
++
++#ifndef __WEAKSYMS_H
++#define __WEAKSYMS_H
++
++#include <stddef.h>
++
++#if defined _WIN32 || defined __CYGWIN__
++  // Calling back to user code not supported, set the weak symbol to NULL always.
++  #define IPMI_WEAK_DLL(ret, sym, decl) static ret (*sym)decl = NULL
++  // Weak symbol with a default value, do not set to zero
++  #define IPMI_WEAK_DLL_DEFAULT(ret, sym, decl) ret sym decl
++  #define IPMI_WEAK_USER(ret, sym, decl) // Nothing, omit the prototype
++#else
++  #ifdef __GNUC__
++    #define IPMI_WEAK_DLL(ret, sym, decl) __attribute__ ((weak)) ret sym decl
++    #define IPMI_WEAK_DLL_DEFAULT(ret, sym, decl) IPMI_WEAK_DLL(ret, sym, decl)
++    #define IPMI_WEAK_USER(ret, sym, decl) ret sym decl
++  #else
++    // Weak symbol not supported as we can not generate #pragma nor _Pragma from cpp
++    #define IPMI_WEAK_DLL(ret, sym, decl) static ret (*sym)decl = NULL
++    #define IPMI_WEAK_DLL_DEFAULT(ret, sym, decl) ret sym decl
++    #define IPMI_WEAK_USER(ret, sym, decl) // Nothing, omit the prototype
++  #endif
++#endif
++
++#endif /* __WEAKSYMS_H */
+diff --git a/lanserv/Makefile.am b/lanserv/Makefile.am
+index 371ec52d..e4409423 100644
+--- a/lanserv/Makefile.am
++++ b/lanserv/Makefile.am
+@@ -30,7 +30,7 @@ bin_PROGRAMS = ipmi_sim $(IPMILAN_PROG)
+ 
+ noinst_PROGRAMS = ipmi_checksum
+ 
+-noinst_HEADERS = emu.h bmc.h ipmi_sim.h sol.h
++noinst_HEADERS = emu.h bmc.h ipmi_sim.h sol.h callback.h
+ 
+ libIPMIlanserv_la_SOURCES = lanserv_ipmi.c lanserv_asf.c priv_table.c \
+ 	lanserv_oem_force.c lanserv_config.c config.c serv.c serial_ipmi.c \
+diff --git a/lanserv/OpenIPMI/Makefile.am b/lanserv/OpenIPMI/Makefile.am
+index 80fb44ea..f9fbf2cf 100644
+--- a/lanserv/OpenIPMI/Makefile.am
++++ b/lanserv/OpenIPMI/Makefile.am
+@@ -1,3 +1,3 @@
+ 
+ pkginclude_HEADERS = lanserv.h serserv.h serv.h extcmd.h persist.h msg.h \
+-	mcserv.h ipmbserv.h lanserv_dllvisibility.h
++	mcserv.h ipmbserv.h lanserv_dllvisibility.h lanserv_weaksyms.h
+diff --git a/lanserv/OpenIPMI/lanserv.h b/lanserv/OpenIPMI/lanserv.h
+index 57ed757e..867f2741 100644
+--- a/lanserv/OpenIPMI/lanserv.h
++++ b/lanserv/OpenIPMI/lanserv.h
+@@ -57,6 +57,7 @@
+ #define __LANSERV_H
+ 
+ #include <OpenIPMI/lanserv_dllvisibility.h>
++#include <OpenIPMI/lanserv_weaksyms.h>
+ 
+ #include <stdint.h>
+ #include <stdio.h>
+@@ -236,6 +237,8 @@ typedef struct ipmi_tick_handler_s {
+     struct ipmi_tick_handler_s *next;
+ } ipmi_tick_handler_t;
+ 
++IPMI_LANSERV_WEAK(void, ipmi_register_tick_handler, (ipmi_tick_handler_t *handler));
++
+ typedef struct oem_handlers_s
+ {
+     void *oem_data;
+diff --git a/lanserv/OpenIPMI/lanserv_weaksyms.h b/lanserv/OpenIPMI/lanserv_weaksyms.h
+new file mode 100644
+index 00000000..e68d6bd2
+--- /dev/null
++++ b/lanserv/OpenIPMI/lanserv_weaksyms.h
+@@ -0,0 +1,67 @@
++/*
++ * lanserv.h
++ *
++ * MontaVista IPMI LAN server include file
++ *
++ * Author: MontaVista Software, Inc.
++ *         Corey Minyard <minyard@mvista.com>
++ *         source@mvista.com
++ *
++ * Copyright 2003,2004,2005 MontaVista Software Inc.
++ *
++ * This software is available to you under a choice of one of two
++ * licenses.  You may choose to be licensed under the terms of the GNU
++ * Lesser General Public License (GPL) Version 2 or the modified BSD
++ * license below.  The following disclamer applies to both licenses:
++ *
++ *  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
++ *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ *  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
++ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++` *  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
++ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
++ *  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *
++ * GNU Lesser General Public Licence
++ *
++ *  This program is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public License
++ *  as published by the Free Software Foundation; either version 2 of
++ *  the License, or (at your option) any later version.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this program; if not, write to the Free
++ *  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
++ *
++ * Modified BSD Licence
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *   1. Redistributions of source code must retain the above copyright
++ *      notice, this list of conditions and the following disclaimer.
++ *   2. Redistributions in binary form must reproduce the above
++ *      copyright notice, this list of conditions and the following
++ *      disclaimer in the documentation and/or other materials provided
++ *      with the distribution.
++ *   3. The name of the author may not be used to endorse or promote
++ *      products derived from this software without specific prior
++ *      written permission.
++ */
++
++#ifndef __LANSERV_WEAKSYMS_H
++#define __LANSERV_WEAKSYMS_H
++
++#include <OpenIPMI/weaksyms.h>
++
++#if defined BUILDING_IPMI_LANSERV_DLL
++  #define IPMI_LANSERV_WEAK(ret, sym, decl) IPMI_WEAK_DLL(ret, sym, decl)
++#else
++  #define IPMI_LANSERV_WEAK(ret, sym, decl) IPMI_WEAK_USER(ret, sym, decl)
++#endif
++
++#endif /* __LANSERV_WEAKSYMS_H */
+diff --git a/lanserv/OpenIPMI/mcserv.h b/lanserv/OpenIPMI/mcserv.h
+index c2a04648..de8d1440 100644
+--- a/lanserv/OpenIPMI/mcserv.h
++++ b/lanserv/OpenIPMI/mcserv.h
+@@ -84,6 +84,19 @@ void ipmi_mc_set_chassis_control_func(lmc_data_t *mc,
+ 						 void *cb_data),
+ 				      void *cb_data);
+ 
++IPMI_LANSERV_WEAK(int, ipmi_mc_alloc_unconfigured, (sys_data_t *sys, unsigned char ipmb,
++                                                    lmc_data_t **rmc));
++
++IPMI_LANSERV_WEAK(unsigned char, ipmi_mc_get_ipmb, (lmc_data_t *mc));
++IPMI_LANSERV_WEAK(channel_t **, ipmi_mc_get_channelset, (lmc_data_t *mc));
++IPMI_LANSERV_WEAK(ipmi_sol_t *, ipmi_mc_get_sol, (lmc_data_t *mc));
++IPMI_LANSERV_WEAK(startcmd_t *, ipmi_mc_get_startcmdinfo, (lmc_data_t *mc));
++IPMI_LANSERV_WEAK(user_t *, ipmi_mc_get_users, (lmc_data_t *mc));
++IPMI_LANSERV_WEAK(pef_data_t *, ipmi_mc_get_pef, (lmc_data_t *mc));
++
++IPMI_LANSERV_WEAK(void, ipmi_resend_atn, (channel_t *chan));
++IPMI_LANSERV_WEAK(msg_t *, ipmi_mc_get_next_recv_q, (channel_t *chan));
++
+ /*
+  * FRUs have a semaphore that can be use to grant exclusive access.
+  * The semaphore is attempted to get before read and write operations,
+@@ -165,6 +178,8 @@ int check_msg_length(msg_t         *msg,
+ 		     unsigned int  len,
+ 		     unsigned char *rdata,
+ 		     unsigned int  *rdata_len);
++IPMI_LANSERV_WEAK(void, ipmi_set_chassis_control_prog,
++                  (lmc_data_t *mc, const char *prog));
+ 
+ void ipmi_mc_set_dev_revision(lmc_data_t *mc, unsigned char dev_revision);
+ void ipmi_mc_set_fw_revision(lmc_data_t *mc, unsigned char fw_revision_major,
+@@ -172,6 +187,10 @@ void ipmi_mc_set_fw_revision(lmc_data_t *mc, unsigned char fw_revision_major,
+ void ipmi_mc_set_aux_fw_revision(lmc_data_t *mc,
+ 				 unsigned char aux_fw_revision[4]);
+ const char *get_lanserv_version(void);
++IPMI_LANSERV_WEAK(int, sol_read_config,
++                  (char **tokptr, sys_data_t *sys, const char **err));
++
++IPMI_LANSERV_WEAK(int, ipmi_mc_users_changed, (lmc_data_t *mc));
+ 
+ /*
+  * Types and functions for registering handlers with the MC emulator.
+diff --git a/lanserv/callback.h b/lanserv/callback.h
+new file mode 100644
+index 00000000..eb9f18fa
+--- /dev/null
++++ b/lanserv/callback.h
+@@ -0,0 +1,68 @@
++/*
++ * callback.h
++ *
++ * MontaVista IPMI LAN server include file
++ *
++ * Author: MontaVista Software, Inc.
++ *         Corey Minyard <minyard@mvista.com>
++ *         source@mvista.com
++ *
++ * Copyright 2003,2004,2005 MontaVista Software Inc.
++ *
++ * This software is available to you under a choice of one of two
++ * licenses.  You may choose to be licensed under the terms of the GNU
++ * Lesser General Public License (GPL) Version 2 or the modified BSD
++ * license below.  The following disclamer applies to both licenses:
++ *
++ *  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
++ *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ *  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
++ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++` *  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
++ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
++ *  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *
++ * GNU Lesser General Public Licence
++ *
++ *  This program is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU Lesser General Public License
++ *  as published by the Free Software Foundation; either version 2 of
++ *  the License, or (at your option) any later version.
++ *
++ *  You should have received a copy of the GNU Lesser General Public
++ *  License along with this program; if not, write to the Free
++ *  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
++ *
++ * Modified BSD Licence
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *   1. Redistributions of source code must retain the above copyright
++ *      notice, this list of conditions and the following disclaimer.
++ *   2. Redistributions in binary form must reproduce the above
++ *      copyright notice, this list of conditions and the following
++ *      disclaimer in the documentation and/or other materials provided
++ *      with the distribution.
++ *   3. The name of the author may not be used to endorse or promote
++ *      products derived from this software without specific prior
++ *      written permission.
++ */
++
++#ifndef __CALLBACK_H
++#define __CALLBACK_H
++
++/*
++ * Macros to get callbacks that exist either as function pointers in some structure
++ * or as functions in user code.
++ * Pointers take precedence, functions exist for backward compatibility.
++ */
++
++#define LANSERV_CB(obj, field, name) ( (obj)->field ? (obj)->field : (name) )
++#define LANSERV_CB_IPMI(obj, name) LANSERV_CB(obj, name, ipmi_ ## name)
++
++#endif /* __CALLBACK_H */
+diff --git a/lanserv/config.c b/lanserv/config.c
+index 453750eb..d59e93fe 100644
+--- a/lanserv/config.c
++++ b/lanserv/config.c
+@@ -65,6 +65,9 @@
+ #include <OpenIPMI/serserv.h>
+ #include <OpenIPMI/ipmbserv.h>
+ #include <OpenIPMI/persist.h>
++#include <OpenIPMI/mcserv.h>
++
++#include "callback.h"
+ 
+ void
+ read_persist_users(sys_data_t *sys)
+@@ -80,11 +83,11 @@ read_persist_users(sys_data_t *sys)
+ 	if (!mc)
+ 	    continue;
+ 
+-	p = read_persist("users.mc%2.2x", sys->mc_get_ipmb(mc));
++	p = read_persist("users.mc%2.2x", LANSERV_CB_IPMI(sys, mc_get_ipmb)(mc));
+ 	if (!p)
+ 	    continue;
+ 
+-	users = sys->mc_get_users(mc);
++	users = LANSERV_CB_IPMI(sys, mc_get_users)(mc);
+ 	for (j = 0; j <= MAX_USERS; j++) {
+ 	    void *data;
+ 	    unsigned int len;
+@@ -124,14 +127,14 @@ write_persist_users(sys_data_t *sys)
+ 	user_t *users;
+ 	persist_t *p;
+ 
+-	if (!mc || !sys->mc_users_changed(mc))
++	if (!mc || !LANSERV_CB_IPMI(sys, mc_users_changed)(mc))
+ 	    continue;
+ 
+-	p = alloc_persist("users.mc%2.2x", sys->mc_get_ipmb(mc));
++	p = alloc_persist("users.mc%2.2x", LANSERV_CB_IPMI(sys, mc_get_ipmb)(mc));
+ 	if (!p)
+ 	    return ENOMEM;
+ 
+-	users = sys->mc_get_users(mc);
++	users = LANSERV_CB_IPMI(sys, mc_get_users)(mc);
+ 	for (j = 0; j <= MAX_USERS; j++) {
+ 	    add_persist_int(p, users[j].valid, "%d.valid", j);
+ 	    add_persist_int(p, users[j].link_auth, "%d.link_auth", j);
+@@ -834,12 +837,13 @@ read_config(sys_data_t *sys,
+ 	} else if (strcmp(tok, "serial") == 0) {
+ 	    err = serserv_read_config(&tokptr, sys, &errstr);
+ 	} else if (strcmp(tok, "sol") == 0) {
+-	    err = sys->sol_read_config(&tokptr, sys, &errstr);
++	    err = LANSERV_CB(sys, sol_read_config, sol_read_config)
++			(&tokptr, sys, &errstr);
+ 	} else if (strcmp(tok, "chassis_control") == 0) {
+ 	    char *prog;
+ 	    err = get_delim_str(&tokptr, &prog, &errstr);
+ 	    if (!err)
+-		sys->set_chassis_control_prog(sys->mc, prog);
++		LANSERV_CB_IPMI(sys, set_chassis_control_prog)(sys->mc, prog);
+ 	} else if (strcmp(tok, "name") == 0) {
+ 	    err = get_delim_str(&tokptr, &sys->name, &errstr);
+ 	} else if (strcmp(tok, "startcmd") == 0) {
+@@ -860,7 +864,7 @@ read_config(sys_data_t *sys,
+ 	    err = get_uchar(&tokptr, &ipmb, &errstr);
+ 	    if (!err) {
+ 		lmc_data_t *mc;
+-		err = sys->mc_alloc_unconfigured(sys, ipmb, &mc);
++		err = LANSERV_CB_IPMI(sys, mc_alloc_unconfigured)(sys, ipmb, &mc);
+ 		if (err == ENOMEM) {
+ 		    errstr = "Out of memory";
+ 		    err = -1;
+@@ -869,11 +873,11 @@ read_config(sys_data_t *sys,
+ 		    err = -1;
+ 		} else {
+ 		    sys->mc = mc;
+-		    sys->cusers = sys->mc_get_users(mc);
+-		    sys->chan_set = sys->mc_get_channelset(mc);
+-		    sys->cpef = sys->mc_get_pef(mc);
+-		    sys->startcmd = sys->mc_get_startcmdinfo(mc);
+-		    sys->sol = sys->mc_get_sol(mc);
++		    sys->cusers = LANSERV_CB_IPMI(sys, mc_get_users)(mc);
++		    sys->chan_set = LANSERV_CB_IPMI(sys, mc_get_channelset)(mc);
++		    sys->cpef = LANSERV_CB_IPMI(sys, mc_get_pef)(mc);
++		    sys->startcmd = LANSERV_CB_IPMI(sys, mc_get_startcmdinfo)(mc);
++		    sys->sol = LANSERV_CB_IPMI(sys, mc_get_sol)(mc);
+ 		}
+ 	    }
+ 	} else if (strcmp(tok, "console") == 0) {
+diff --git a/lanserv/lanserv_ipmi.c b/lanserv/lanserv_ipmi.c
+index ccd60015..c3c2cdbe 100644
+--- a/lanserv/lanserv_ipmi.c
++++ b/lanserv/lanserv_ipmi.c
+@@ -73,6 +73,9 @@
+ 
+ #include <OpenIPMI/persist.h>
+ #include <OpenIPMI/extcmd.h>
++#include <OpenIPMI/mcserv.h>
++
++#include "callback.h"
+ 
+ static int
+ is_authval_null(uint8_t *val)
+@@ -512,7 +515,7 @@ lan_return_rsp(channel_t *chan, msg_t *msg, rsp_msg_t *rsp)
+ 
+     return_rsp(lan, msg, NULL, rsp);
+ 
+-    msg = lan->sysinfo->mc_get_next_recv_q(chan);
++    msg = LANSERV_CB_IPMI(lan->sysinfo, mc_get_next_recv_q)(chan);
+     if (!msg)
+ 	return;
+     while (msg) {
+@@ -531,7 +534,7 @@ lan_return_rsp(channel_t *chan, msg_t *msg, rsp_msg_t *rsp)
+ 
+ 	chan->free(chan, msg);
+ 
+-	msg = lan->sysinfo->mc_get_next_recv_q(chan);
++	msg = LANSERV_CB_IPMI(lan->sysinfo, mc_get_next_recv_q)(chan);
+     }
+     if (chan->recv_in_q)
+ 	chan->recv_in_q(chan, 0);
+@@ -729,7 +732,7 @@ handle_get_channel_cipher_suites(lanserv_data_t *lan, msg_t *msg)
+     if (chan == 0xe)
+ 	chan = lan->channel.channel_num;
+ 
+-    channels = lan->sysinfo->mc_get_channelset(lan->channel.mc);
++    channels = LANSERV_CB_IPMI(lan->sysinfo, mc_get_channelset)(lan->channel.mc);
+     channel = channels[chan];
+     if (!channel) {
+ 	return_err(lan, msg, NULL, IPMI_NOT_PRESENT_CC);
+@@ -3202,7 +3205,7 @@ ipmi_lan_init(lanserv_data_t *lan)
+ 
+     lan->tick_handler.handler = ipmi_lan_tick;
+     lan->tick_handler.info = lan;
+-    lan->sysinfo->register_tick_handler(&lan->tick_handler);
++    LANSERV_CB_IPMI(lan->sysinfo, register_tick_handler)(&lan->tick_handler);
+ 
+  out:
+     return rv;
+diff --git a/lanserv/marvell-bmc/marvell_mod.c b/lanserv/marvell-bmc/marvell_mod.c
+index b5b15e05..41a07b5c 100644
+--- a/lanserv/marvell-bmc/marvell_mod.c
++++ b/lanserv/marvell-bmc/marvell_mod.c
+@@ -72,6 +72,7 @@
+ #include <OpenIPMI/lanserv.h>
+ #include <OpenIPMI/mcserv.h>
+ 
++#include "callback.h"
+ #include "wiw.h"
+ 
+ #define PVERSION "2.0.12"
+@@ -3052,7 +3053,7 @@ ipmi_sim_module_init(sys_data_t *sys, const char *initstr_i)
+ 	}
+     }
+ 
+-    rv = sys->mc_alloc_unconfigured(sys, 0x20, &bmc_mc);
++    rv = LANSERV_CB_IPMI(sys, mc_alloc_unconfigured)(sys, 0x20, &bmc_mc);
+     if (rv) {
+ 	sys->log(sys, OS_ERROR, NULL,
+ 		 "Unable to allocate an mc: %s", strerror(rv));
+@@ -3099,7 +3100,7 @@ ipmi_sim_module_init(sys_data_t *sys, const char *initstr_i)
+ 	    }
+ 	}
+ 
+-	rv = sys->mc_alloc_unconfigured(sys, board_ipmb[num], &mc);
++	rv = LANSERV_CB_IPMI(sys, mc_alloc_unconfigured)(sys, board_ipmb[num], &mc);
+ 	if (rv) {
+ 	    sys->log(sys, OS_ERROR, NULL,
+ 		     "Unable to allocate an mc: %s", strerror(rv));
+@@ -3285,7 +3286,7 @@ ipmi_sim_module_post_init(sys_data_t *sys)
+ 	 */
+ 	unsigned char data[13];
+ 	memset(data, 0, sizeof(data));
+-	data[4] = sys->mc_get_ipmb(bmc_mc);
++	data[4] = LANSERV_CB_IPMI(sys, mc_get_ipmb)(bmc_mc);
+ 	data[5] = 0; /* LUN */
+ 	data[6] = 0x04; /* Event message revision for IPMI 1.5. */
+ 	data[7] = 0x1d; /* System boot initiated. */
+diff --git a/lanserv/serial_ipmi.c b/lanserv/serial_ipmi.c
+index 8ba8f7d0..b7255341 100644
+--- a/lanserv/serial_ipmi.c
++++ b/lanserv/serial_ipmi.c
+@@ -63,6 +63,7 @@
+ #include <OpenIPMI/ipmi_mc.h>
+ #include <OpenIPMI/ipmi_msgbits.h>
+ #include <OpenIPMI/serserv.h>
++#include <OpenIPMI/mcserv.h>
+ 
+ #define EVENT_BUFFER_GLOBAL_ENABLE	(1 << 2)
+ #define EVENT_LOG_GLOBAL_ENABLE		(1 << 3)
+@@ -1008,6 +1009,8 @@ vm_connected(serserv_data_t *si)
+     si->connected = 1;
+     if (si->sysinfo->resend_atn)
+ 	si->sysinfo->resend_atn(&si->channel);
++    else if (ipmi_resend_atn)
++	ipmi_resend_atn(&si->channel);
+ }
+ 
+ static void
+diff --git a/unix/posix_os_hnd.c b/unix/posix_os_hnd.c
+index f84ba270..54910c4b 100644
+--- a/unix/posix_os_hnd.c
++++ b/unix/posix_os_hnd.c
+@@ -376,6 +376,8 @@ sposix_vlog(os_handler_t         *handler,
+ 
+     if (log_handler)
+ 	log_handler(handler, format, log_type, ap);
++    else if (posix_vlog)
++	posix_vlog((char *) format, log_type, ap);
+     else
+ 	default_vlog(format, log_type, ap);
+ }
+diff --git a/unix/posix_thread_os_hnd.c b/unix/posix_thread_os_hnd.c
+index cb315c5e..3bec32f6 100644
+--- a/unix/posix_thread_os_hnd.c
++++ b/unix/posix_thread_os_hnd.c
+@@ -377,6 +377,8 @@ sposix_vlog(os_handler_t         *handler,
+ 
+     if (log_handler)
+ 	log_handler(handler, format, log_type, ap);
++    else if (posix_vlog)
++	posix_vlog((char *) format, log_type, ap);
+     else
+ 	default_vlog(format, log_type, ap);
+ }
