@@ -4,7 +4,7 @@ Summary: IPMI (Intelligent Platform Management Interface) library and tools
 Name: OpenIPMI
 
 Version:    2.0.32
-Release:    3%{?dist}
+Release:    5%{?dist}
 License:    LGPLv2+ and GPLv2+ or BSD
 URL:        http://sourceforge.net/projects/openipmi/
 Source:     http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Source2:    openipmi-helper
 Source3:    ipmi.service
 Patch1:     0001-man.patch
 Patch2:     include-config-h-cmdlang.patch
+Patch3:     OpenIPMI-CVE-2024-42934.patch
 
 BuildRequires: make
 BuildRequires:    gdbm-devel swig glib2-devel net-snmp-devel ncurses-devel
@@ -201,6 +202,14 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man5/ipmi_sim_cmd.5*
 
 %changelog
+* Thu Oct 10 2024 Pavel Cahyna <pcahyna@redhat.com> - 2.0.32-5
+- Update the patch for CVE-2024-42934 to add a missing upstream
+  commit from 2.0.36: 663e3cd3
+
+* Thu Sep 26 2024 Pavel Cahyna <pcahyna@redhat.com> - 2.0.32-4
+- Backport two commits from 2.0.36 to add checks in ipmi_sim
+  and ipmilan (CVE-2024-42934)
+
 * Fri Jan 28 2022 Pavel Cahyna <pcahyna@redhat.com> - 2.0.32-3
 - Add a patch to resolve one more issue found by rpmdiff/rpminspect:
   fix getaddrinfo detection to avoid using gethostbyname.
