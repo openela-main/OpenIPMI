@@ -1,0 +1,12 @@
+diff -ur OpenIPMI-2.0.34/swig/OpenIPMI.i OpenIPMI-2.0.34-python/swig/OpenIPMI.i
+--- OpenIPMI-2.0.34/swig/OpenIPMI.i	2024-02-11 19:52:41.555777279 +0100
++++ OpenIPMI-2.0.34-python/swig/OpenIPMI.i	2024-02-11 20:11:59.061132776 +0100
+@@ -38,6 +38,7 @@
+ #include <config.h>
+ #include <sys/types.h>
+ #include <sys/socket.h>
++#include <ctype.h>
+ 
+ #ifdef HAVE_GETADDRINFO
+ #include <netdb.h>
+Only in OpenIPMI-2.0.34-python/swig: OpenIPMI.i~
